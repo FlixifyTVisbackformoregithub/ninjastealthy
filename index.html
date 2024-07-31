@@ -1,0 +1,138 @@
+<link rel="shortcut icon" type="image/png" href="https://i.ibb.co/7jRsSTS/Title-4.png">
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filmzone Movies</title>
+    <style>
+        body {
+            background-color: black;
+            font-family: 'ABeeZee', sans-serif;
+            cursor: url('https://i.ibb.co/6nYbJ6Q/normal-cursor.png'), auto; /* Default cursor */
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .movie {
+            transition: transform .2s, filter .2s, box-shadow .2s;
+            width: 150px;
+            height: 225px;
+            margin: 10px;
+            position: relative;
+            border-radius: 10px;
+        }
+        .movie img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .movie:hover {
+            transform: scale(1.1);
+            filter: brightness(50%);
+            cursor: url('https://i.ibb.co/6nYbJ6Q/enlarged-cursor.png'), auto; /* Enlarged cursor on hover */
+            box-shadow: 0 0 10px red;
+        }
+        .title {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+        .movie:hover .title {
+            display: flex;
+        }
+        .header {
+            color: white;
+            font-size: 36px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+        .search-bar {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+        }
+        .search-button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .highlight {
+            box-shadow: 0 0 10px yellow;
+        }
+        .arrow {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+    </style>
+    <script>
+        let currentIndex = 0;
+        let highlights = [];
+
+        function searchMovies() {
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            const movies = document.querySelectorAll('.movie');
+            highlights = [];
+            movies.forEach(movie => {
+                movie.classList.remove('highlight');
+                const title = movie.querySelector('.title').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    highlights.push(movie);
+                }
+            });
+            if (highlights.length > 0) {
+                currentIndex = 0;
+                highlights[currentIndex].classList.add('highlight');
+                highlights[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function nextHighlight() {
+            if (highlights.length > 1) {
+                highlights[currentIndex].classList.remove('highlight');
+                currentIndex = (currentIndex + 1) % highlights.length;
+                highlights[currentIndex].classList.add('highlight');
+                highlights[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="header">👑Filmzone Movies👑</div>
+    <div class="search-container">
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search For Your Favorite Movie">
+        <button class="search-button" onclick="searchMovies()">SEARCH</button>
+    </div>
+    <div class="content">
+        <div class="movie" onclick="openFullScreen('https://drive.google.com/file/d/1ZiPMKkIpNxqP1-3_aYf_m2fofWg2kDOC/preview')">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ5mGxS_9qt5c1bqLtXfcAqcmqJXZjsnt9cyI8atrxLfFFf4eVY" alt="Movie 1">
+            <div class="title">Imaginary</div>
+        </div>
+        <div class="movie" onclick="openFullScreen('https://drive.google.com/file/d/1OsyF2LKJqjtv0b2Xd9GWOLcYkzny3VZo/preview')">
+            <img src="https://upload.wikimedia.org/wikipedia/vi/8/8c/B%C3%ACa_phim_Anh_em_Super_Mario.png" alt="Movie 2">
+            <div class="title">Super Mario</div>
+        </div>
+        <!-- Add more movies as needed -->
+    </div>
+    <div class="arrow" onclick="nextHighlight()">↓</div>
+</body>
+</html>
