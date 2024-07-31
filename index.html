@@ -102,7 +102,7 @@
                 highlights[currentIndex].classList.add('highlight');
                 highlights[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-            addMovieClickEvents(); // Add this line
+            addMovieClickEvents();
         }
 
         function nextHighlight() {
@@ -119,12 +119,12 @@
             movies.forEach(movie => {
                 movie.addEventListener('click', function() {
                     const url = movie.getAttribute('onclick').match(/'(.*?)'/)[1];
-                    window.location.replace(url); // Change this line
+                    window.open(url, '_self'); // Change this line
                 });
             });
         }
 
-        document.addEventListener('DOMContentLoaded', addMovieClickEvents); // Add this line
+        document.addEventListener('DOMContentLoaded', addMovieClickEvents);
     </script>
 </head>
 <body>
