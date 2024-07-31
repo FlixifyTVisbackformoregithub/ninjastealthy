@@ -1,5 +1,3 @@
-<link rel="shortcut icon" type="image/png" href="https://i.ibb.co/7jRsSTS/Title-4.png">
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,7 +119,7 @@
             movies.forEach(movie => {
                 movie.addEventListener('click', function() {
                     const url = movie.getAttribute('onclick').match(/'(.*?)'/)[1];
-                    window.location.assign(url); // Change this line
+                    window.location.replace(url); // Change this line
                 });
             });
         }
